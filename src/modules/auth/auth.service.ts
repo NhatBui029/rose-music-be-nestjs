@@ -1,5 +1,4 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { MemberService } from '../member/member.service';
 import { LoginDTO } from './dto/login.dto';
 import { BcryptService } from './bcrypt.service';
 import { JwtService } from '@nestjs/jwt';
@@ -10,7 +9,6 @@ import { v4 as uuidv4 } from 'uuid';
 @Injectable()
 export class AuthService {
   constructor(
-    private readonly memberService: MemberService,
     private readonly bcryptService: BcryptService,
     private readonly jwtService: JwtService,
     private readonly jwtRedisService: JwtRedis,
@@ -59,7 +57,8 @@ export class AuthService {
 
   async login(info: LoginDTO): Promise<Object> {
     const { username, password } = info;
-    const members = await this.memberService.getMember({ username });
+    // const members = await this.memberService.getMember({ username });
+    const members = []
 
     if (members.length === 0)
       return { status: false, message: 'Username not exists !' };

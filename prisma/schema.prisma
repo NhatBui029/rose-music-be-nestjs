@@ -1,0 +1,27 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Facility {
+  id      Int    @id @default(autoincrement())
+  name    String @db.VarChar(50)
+  address String @db.VarChar(1000)
+  Room    Room[]
+
+  @@map("facility")
+}
+
+model Room {
+  id         Int      @id @default(autoincrement())
+  name       String   @db.VarChar(50)
+  capacity   Int
+  facilityId Int      @map("facility_id")
+  facility   Facility @relation(fields: [facilityId], references: [id])
+
+  @@map("room")
+}

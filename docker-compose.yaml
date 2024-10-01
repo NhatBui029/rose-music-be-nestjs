@@ -7,6 +7,8 @@ services:
     volumes:
       - ./:/app/nestjs
       - /app/nestjs/node_modules
+    environment:
+      - DATABASE_URL=mysql://user:password@db:3306/rose-music
     depends_on:
       - db
       - redis
@@ -16,11 +18,22 @@ services:
     restart: always
     environment:
       - MYSQL_RANDOM_ROOT_PASSWORD=true
-      - MYSQL_DATABASE=nestjs-db
+      - MYSQL_DATABASE=rose-music
       - MYSQL_USER=user
       - MYSQL_PASSWORD=password
     ports:
       - 3307:3306
+
+  prisma-migration:
+    build: .
+    environment:
+      MASTER_DB_URL: mysql://user:password@db:3306/rose-music
+    depends_on:
+      - db
+      - be
+    volumes:
+      - .:/usr/src/app
+    command: ["npm", "run", "prisma:migrations:deploy"]
 
   redis:
     image: redis:alpine
