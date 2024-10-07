@@ -5,16 +5,21 @@ import { AppService } from './app.service';
 import { AuthModule } from './modules/auth/auth.module';
 import { RolesGuard } from './guard/roles.guard';
 import { APP_GUARD } from '@nestjs/core';
+import { CloudinaryModule } from './modules/cloudinary/cloudinary.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({ isGlobal: true }),
     AuthModule,
+    CloudinaryModule,
   ],
   controllers: [AppController],
-  providers: [AppService, {
-    provide: APP_GUARD,
-    useClass: RolesGuard,
-  }],
+  providers: [
+    AppService,
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard,
+    },
+  ],
 })
 export class AppModule {}

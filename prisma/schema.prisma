@@ -8,10 +8,11 @@ datasource db {
 }
 
 model Facility {
-  id      Int    @id @default(autoincrement())
-  name    String @db.VarChar(50)
-  address String @db.VarChar(1000)
-  Room    Room[]
+  id       Int    @id @default(autoincrement())
+  name     String @db.VarChar(50)
+  address  String @db.VarChar(1000)
+  imageUrl String @db.VarChar(2000)
+  Room     Room[]
 
   @@map("facility")
 }
