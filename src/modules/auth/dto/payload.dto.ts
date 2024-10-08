@@ -1,9 +1,9 @@
-export class PayloadDTO{
-    id: number;
+export class PayloadDTO {
+  id: number;
 
-    username: string
+  username: string;
 
-    roles?: string[]
+  roles?: string[];
 
-    redisId?: string
+  redisId?: string;
 }

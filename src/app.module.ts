@@ -6,12 +6,14 @@ import { AuthModule } from './modules/auth/auth.module';
 import { RolesGuard } from './guard/roles.guard';
 import { APP_GUARD } from '@nestjs/core';
 import { CloudinaryModule } from './modules/cloudinary/cloudinary.module';
+import { FacilityModule } from './modules/facility/facility.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     AuthModule,
     CloudinaryModule,
+    FacilityModule,
   ],
   controllers: [AppController],
   providers: [

@@ -30,7 +30,7 @@ export class AuthService {
       ),
     ]);
 
-    return {status: true, accessToken, refreshToken };
+    return { status: true, accessToken, refreshToken };
   }
 
   async refreshToken(refresh_token: string): Promise<Object> {
@@ -43,7 +43,7 @@ export class AuthService {
         id: verifyAsync.id,
         username: verifyAsync.username,
         roles: verifyAsync.roles,
-        redisId: uuidv4()
+        redisId: uuidv4(),
       };
 
       return this.generateToken(payload);
@@ -58,7 +58,7 @@ export class AuthService {
   async login(info: LoginDTO): Promise<Object> {
     const { username, password } = info;
     // const members = await this.memberService.getMember({ username });
-    const members = []
+    const members = [];
 
     if (members.length === 0)
       return { status: false, message: 'Username not exists !' };
@@ -84,7 +84,7 @@ export class AuthService {
         secret: process.env.SECRET_KEY,
       });
 
-      const [result1, result2] = await this.jwtRedisService.destroy(decode.id)
+      const [result1, result2] = await this.jwtRedisService.destroy(decode.id);
 
       if (result1 == 1 && result2 == 1)
         return { status: true, message: 'Logout success !' };

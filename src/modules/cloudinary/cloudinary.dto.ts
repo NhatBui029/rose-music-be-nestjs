@@ -1,6 +1,9 @@
 import { IsNotEmpty } from 'class-validator';
 
-export class CreateImageUrlUploadDto {
+export class ConfigUploadDto {
   @IsNotEmpty()
-  folderName: string;
+  folder: string;
+
+  @IsNotEmpty()
+  eager: string;
 }
