@@ -1,4 +1,4 @@
-FROM node:20-alpine
+FROM node:20
 
 # Thiết lập thư mục làm việc
 WORKDIR /app/nestjs
@@ -12,12 +12,17 @@ RUN npm install
 # Sao chép toàn bộ mã nguồn vào container
 COPY . .
 
+EXPOSE 3000
 # Tạo Prisma Client
 RUN npx prisma generate
 
-# Tạo entrypoint script để chạy migration và sau đó khởi động server
-COPY ./entrypoint.sh /app/nestjs/entrypoint.sh
-RUN chmod +x /app/nestjs/entrypoint.sh
+# Lệnh để chạy ứng dụng Node.js
+CMD ["npm","run", "start:dev"]
 
-# Chạy entrypoint script
-ENTRYPOINT ["/app/nestjs/entrypoint.sh"]
+
+# # Tạo entrypoint script để chạy migration và sau đó khởi động server
+# COPY ./entrypoint.sh /app/nestjs/entrypoint.sh
+# RUN chmod +x /app/nestjs/entrypoint.sh
+
+# # Chạy entrypoint script
+# ENTRYPOINT ["/app/nestjs/entrypoint.sh"]

@@ -24,16 +24,16 @@ services:
     ports:
       - 3307:3306
 
-  prisma-migration:
-    build: .
-    environment:
-      MASTER_DB_URL: mysql://user:password@db:3306/rose-music
-    depends_on:
-      - db
-      - be
-    volumes:
-      - .:/usr/src/app
-    command: ["npm", "run", "prisma:migrations:deploy"]
+  # prisma-migration:
+  #   build: .
+  #   environment:
+  #     MASTER_DB_URL: mysql://user:password@db:3306/rose-music
+  #   depends_on:
+  #     - db
+  #     - be
+  #   volumes:
+  #     - .:/usr/src/app
+  #   command: ["npm", "run", "prisma:migrations:deploy"]
 
   redis:
     image: redis:alpine
