@@ -9,10 +9,15 @@ import {
 import { FacilityService } from './facility.service';
 import { CreateFacilityDto } from './dto/create-facility.dto';
 import { Response } from 'express';
+import { CreateRoomDto } from './dto/create-room.dto';
+import { RoomService } from './room.service';
 
 @Controller('facility')
 export class FacilityController {
-  constructor(private readonly facilityService: FacilityService) {}
+  constructor(
+    private readonly facilityService: FacilityService,
+    private readonly roomService: RoomService,
+  ) {}
 
   @Post()
   async create(
@@ -52,6 +57,20 @@ export class FacilityController {
       );
 
       return facilitiy;
+    } catch (error) {
+      console.log('🚀 ~ FacilityController ~ create ~ error:', error);
+      throw new InternalServerErrorException();
+    }
+  }
+
+  @Post(':id/room')
+  async createRoom(
+    @Body() createRoomDto: CreateRoomDto,
+    @Param('id') facilityId: number,
+  ) {
+    console.log('🚀 ~ FacilityController ~ createRoomDto:', createRoomDto);
+    try {
+      return await this.roomService.create(Number(facilityId), createRoomDto);
     } catch (error) {
       console.log('🚀 ~ FacilityController ~ create ~ error:', error);
       throw new InternalServerErrorException();

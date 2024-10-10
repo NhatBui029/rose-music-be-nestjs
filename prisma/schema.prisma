@@ -21,7 +21,7 @@ model Facility {
 model Room {
   id              Int              @id @default(autoincrement())
   name            String           @db.VarChar(50)
-  note            String           @db.VarChar(1000)
+  note            String?          @db.VarChar(1000)
   imageUrl        String           @db.VarChar(2000)
   facilityId      Int              @map("facility_id")
   facility        Facility         @relation(fields: [facilityId], references: [id])
