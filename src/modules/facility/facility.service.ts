@@ -12,4 +12,16 @@ export class FacilityService {
       data: createFacilityDto,
     });
   }
+
+  async getFacilities(): Promise<Facility[]> {
+    return await this.prisma.facility.findMany({
+      where: {},
+    });
+  }
+
+  async getFacilitieDetail(id: number): Promise<Facility> {
+    return await this.prisma.facility.findFirst({
+      where: { id },
+    });
+  }
 }
